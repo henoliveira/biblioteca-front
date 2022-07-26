@@ -1,0 +1,35 @@
+<nav *ngIf="role === 'funcionario'" class="navbar full-width">
+  <div class="container-fluid">
+    <ul class="navbar-nav full-width flex-row">
+      <div>
+        <li><a class="list-item" routerLink="/funcionario">Funcionários</a></li>
+        <li><a class="list-item" routerLink="/associado">Associado</a></li>
+        <li><a class="list-item" routerLink="/publicacao">Publicação</a></li>
+        <li><a class="list-item" routerLink="/exemplar">Exemplares</a></li>
+        <li><a class="list-item" routerLink="/reserva">Reserva</a></li>
+        <li><a class="list-item" routerLink="/emprestimo">Emprestimo</a></li>
+      </div>
+      <div>
+        <li>
+          <a class="list-item" routerLink="/login" (click)="logout()">Logout</a>
+        </li>
+      </div>
+    </ul>
+  </div>
+</nav>
+
+<nav *ngIf="role === 'associado'" class="navbar full-width">
+  <div class="container-fluid">
+    <ul class="navbar-nav full-width flex-row">
+      <div>
+        <li><a class="list-item" routerLink="/publicacao">Publicação</a></li>
+        <li><a class="list-item" routerLink="/emprestimo">Emprestimo</a></li>
+      </div>
+      <div>
+        <li>
+          <a class="list-item" routerLink="/login" (click)="logout()">Logout</a>
+        </li>
+      </div>
+    </ul>
+  </div>
+</nav>

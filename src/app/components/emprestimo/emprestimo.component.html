@@ -1,0 +1,64 @@
+<div class="testbox">
+  <form [formGroup]="emprestimoForm" (ngSubmit)="onSubmit()">
+    <div class="banner">
+      <h1>Fazer Emprestimo</h1>
+    </div>
+    <mat-autocomplete
+      #publicacoesAuto="matAutocomplete"
+      [displayWith]="formatPublicacoesInputName.bind(this)"
+    >
+      <mat-option
+        *ngFor="let publicacao of publicacoes"
+        [value]="publicacao.ISBN"
+      >
+        {{ publicacao.Titulo }} - {{ publicacao.Autor }}
+      </mat-option>
+    </mat-autocomplete>
+    <div class="item">
+      <input
+        id="ISBN"
+        type="text"
+        placeholder="Publicação"
+        matInput
+        formControlName="ISBN"
+        [matAutocomplete]="publicacoesAuto"
+        required
+      />
+    </div>
+    <mat-autocomplete
+      #exemplaresAuto="matAutocomplete"
+      [displayWith]="formatExemplaresInputName.bind(this)"
+    >
+      <mat-option *ngFor="let exemplar of exemplares" [value]="exemplar.Numero">
+      </mat-option>
+    </mat-autocomplete>
+    <div class="item">
+      <input
+        id="exemplarId"
+        type="text"
+        placeholder="Exemplar"
+        matInput
+        formControlName="exemplarId"
+        [matAutocomplete]="exemplaresAuto"
+        required
+      />
+    </div>
+    <div class="item">
+      <input
+        id="associadoId"
+        type="number"
+        name="associadoId"
+        formControlName="associadoId"
+        placeholder="Codigo do Associado"
+        required
+      />
+    </div>
+    <div class="change-mode">{{ message }}</div>
+    <div class="btn-block">
+      <button type="submit" [disabled]="loading" href="/">
+        Realizar Emprestimo
+      </button>
+    </div>
+  </form>
+</div>
+<app-loading *ngIf="loading"></app-loading>

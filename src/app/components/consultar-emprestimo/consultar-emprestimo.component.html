@@ -1,0 +1,19 @@
+<div class="testbox">
+  <table *ngIf="emprestimos.length">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Status</th>
+        <th>Expirado a</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emprestimo of emprestimos">
+        <td>{{ emprestimo.titulo }}</td>
+        <td>{{ emprestimo.status }}</td>
+        <td>{{ emprestimo.expirado_a_dias }} dias</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<app-loading *ngIf="loading"></app-loading>

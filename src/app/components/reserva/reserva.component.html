@@ -1,0 +1,44 @@
+<div class="testbox">
+  <form [formGroup]="reservaForm" (ngSubmit)="onSubmit()">
+    <div class="banner">
+      <h1>Fazer Reserva</h1>
+    </div>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      [displayWith]="formatPublicacoesInputName.bind(this)"
+    >
+      <mat-option
+        *ngFor="let publicacao of publicacoes"
+        [value]="publicacao.ISBN"
+      >
+        {{ publicacao.Titulo }} - {{ publicacao.Autor }}
+      </mat-option>
+    </mat-autocomplete>
+    <div class="item">
+      <input
+        id="ISBN"
+        type="text"
+        placeholder="Publicação"
+        matInput
+        formControlName="ISBN"
+        [matAutocomplete]="auto"
+        required
+      />
+    </div>
+    <div class="item">
+      <input
+        id="associado"
+        type="number"
+        name="associado"
+        formControlName="associadoId"
+        placeholder="Codigo do Associado"
+        required
+      />
+    </div>
+    <div class="error">{{ message }}</div>
+    <div class="btn-block">
+      <button type="submit" [disabled]="loading" href="/">Criar Reserva</button>
+    </div>
+  </form>
+</div>
+<app-loading *ngIf="loading"></app-loading>

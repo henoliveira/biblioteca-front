@@ -1,0 +1,53 @@
+<div *ngIf="mode === 'associado'" class="testbox">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1>Acesso de Associados</h1>
+    <div class="item">
+      <label for="codigo">Codigo</label>
+      <input
+        id="codigo"
+        type="text"
+        name="codigo"
+        formControlName="codigo"
+        required
+      />
+    </div>
+    <div class="item">
+      <label for="senha">Senha</label>
+      <input
+        id="senha"
+        type="password"
+        name="senha"
+        formControlName="senha"
+        required
+      />
+    </div>
+    <div class="change-mode" (click)="toggleMode()">
+      Acesso para funcionários
+    </div>
+    <div class="btn-block">
+      <button type="submit">Login</button>
+    </div>
+    <div class="error">{{ message }}</div>
+  </form>
+</div>
+
+<div *ngIf="mode === 'funcionario'" class="testbox">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1>Acesso de Funcionário</h1>
+    <div class="item">
+      <label for="codigo">Codigo</label>
+      <input id="codigo" type="text" name="codigo" required />
+    </div>
+    <div class="item">
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" name="senha" required />
+    </div>
+    <div class="change-mode" (click)="toggleMode()">Acesso para associados</div>
+    <div class="btn-block">
+      <button type="submit">Login</button>
+    </div>
+  </form>
+  <div class="error">{{ message }}</div>
+</div>
+
+<app-loading *ngIf="loading"></app-loading>

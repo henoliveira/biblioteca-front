@@ -1,0 +1,29 @@
+<div class="testbox">
+  <form [formGroup]="associadoForm" (ngSubmit)="onSubmit()">
+    <div class="banner">
+      <h1>Cadastro de Associados</h1>
+    </div>
+    <div class="item">
+      <input id="nome" type="text" name="nome" formControlName="nome" placeholder="Nome" required />
+    </div>
+    <div class="item">
+      <input id="endereco" type="text" name="endereco" formControlName="endereco" placeholder="Endereço" required />
+    </div>
+    <div class="item">
+      <input id="email" type="email" name="email" formControlName="email" placeholder="Email" required />
+    </div>
+    <div class="item">
+      <label for="status">Status</label>
+      <select id="status" name="status" formControlName="status">
+        <option value="Grad">Graduação</option>
+        <option value="Posgrad">Pós Graduação</option>
+        <option value="Prof">Professor</option>
+      </select>
+    </div>
+    <div class="change-mode">{{message}}</div>
+    <div class="btn-block">
+      <button type="submit" [disabled]="loading" href="/">Criar</button>
+    </div>
+  </form>
+</div>
+<app-loading *ngIf="loading"></app-loading>

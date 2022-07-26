@@ -1,0 +1,56 @@
+<div *ngIf="role === 'funcionario'" class="testbox">
+  <form [formGroup]="publicacaoForm" (ngSubmit)="onSubmit()">
+    <div class="banner">
+      <h1>Cadastro de Publicação</h1>
+    </div>
+    <div class="item">
+      <input
+        id="ISBN"
+        type="text"
+        name="ISBN"
+        formControlName="ISBN"
+        placeholder="ISBN"
+        required
+      />
+    </div>
+    <div class="item">
+      <input
+        id="titulo"
+        type="text"
+        name="titulo"
+        formControlName="titulo"
+        placeholder="Título"
+        required
+      />
+    </div>
+    <div class="item">
+      <input
+        id="autor"
+        type="text"
+        name="autor"
+        formControlName="autor"
+        placeholder="Autor"
+        required
+      />
+    </div>
+    <div class="item">
+      <input
+        id="editora"
+        type="text"
+        name="editora"
+        formControlName="editora"
+        placeholder="Editora"
+        required
+      />
+    </div>
+    <div class="change-mode">{{ createMessage }}</div>
+    <div class="btn-block">
+      <button type="submit" [disabled]="loading" href="/">
+        Criar Publicação
+      </button>
+    </div>
+  </form>
+</div>
+<app-consulta-publicacao></app-consulta-publicacao>
+
+<app-loading *ngIf="loading"></app-loading>
