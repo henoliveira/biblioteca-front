@@ -36,11 +36,11 @@
     <h1>Acesso de Funcionário</h1>
     <div class="item">
       <label for="codigo">Codigo</label>
-      <input id="codigo" type="text" name="codigo" required />
+      <input id="codigo" type="text" formControlName="codigo" name="codigo" required />
     </div>
     <div class="item">
       <label for="senha">Senha</label>
-      <input id="senha" type="password" name="senha" required />
+      <input id="senha" type="password" formControlName="senha" name="senha" required />
     </div>
     <div class="change-mode" (click)="toggleMode()">Acesso para associados</div>
     <div class="btn-block">
