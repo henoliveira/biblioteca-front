@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiURL: 'http://localhost:8000' // TODO: Change this to your API URL
+  apiURL: 'https://biblioteca-db.herokuapp.com:8000' // TODO: Change this to your API URL
 };
