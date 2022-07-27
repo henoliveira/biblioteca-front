@@ -2,12 +2,12 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h1>Acesso de Associados</h1>
     <div class="item">
-      <label for="codigo">Codigo</label>
+      <label for="nome">Nome</label>
       <input
-        id="codigo"
+        id="nome"
         type="text"
-        name="codigo"
-        formControlName="codigo"
+        name="nome"
+        formControlName="nome"
         required
       />
     </div>
@@ -35,8 +35,8 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h1>Acesso de Funcionário</h1>
     <div class="item">
-      <label for="codigo">Codigo</label>
-      <input id="codigo" type="text" formControlName="codigo" name="codigo" required />
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" formControlName="nome" name="nome" required />
     </div>
     <div class="item">
       <label for="senha">Senha</label>

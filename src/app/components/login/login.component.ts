@@ -25,7 +25,7 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      codigo: '',
+      nome: '',
       senha: '',
     });
   }
@@ -50,11 +50,11 @@ export class LoginComponent {
         const landingPage = this.mode === 'associado' ? '/publicacao' : '/funcionario';
         this.router.navigate([landingPage]);
       } else {
-        this.message = 'Codigo incorreto';
+        this.message = 'Nome incorreto';
       }
     } catch (err) {
       this.loading = false;
-      this.message = 'Codigo incorreto'
+      this.message = 'Nome incorreto'
     }
   }
 
@@ -63,7 +63,7 @@ export class LoginComponent {
       const response = await this.httpService.post<ILoginResponse>(
         '/login/associado',
         {
-          codigo: this.loginForm.value.codigo,
+          nome: this.loginForm.value.nome,
           senha: this.loginForm.value.senha,
         }
         );
@@ -72,7 +72,7 @@ export class LoginComponent {
         const response = await this.httpService.post<ILoginResponse>(
           '/login/funcionario',
           {
-            codigo: this.loginForm.value.codigo,
+            nome: this.loginForm.value.nome,
             senha: this.loginForm.value.senha,
           }
           );
