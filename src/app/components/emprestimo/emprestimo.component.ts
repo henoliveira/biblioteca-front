@@ -39,7 +39,6 @@ export class EmprestimoComponent {
   exemplares: Exemplar[] = [];
   associados: Associado[] = [];
 
-
   ngOnInit(): void {
     this.emprestimoForm = this.formBuilder.group<Partial<Emprestimo>>({
       ISBN: '',
@@ -66,7 +65,6 @@ export class EmprestimoComponent {
     return `${selectedAssociado.Codigo} - ${selectedAssociado.Nome}`;
   }
 
-
   async onSubmit() {
     this.createEmprestimo();
   }
@@ -78,7 +76,8 @@ export class EmprestimoComponent {
         '/emprestimo',
         {
           ISBN: this.emprestimoForm.value.ISBN,
-          preco: this.emprestimoForm.value.preco,
+          id_associado: this.emprestimoForm.value.associadoId,
+          nro_exemplar: this.emprestimoForm.value.exemplarId,
         }
       );
 
@@ -97,8 +96,7 @@ export class EmprestimoComponent {
   }
 
   async handlePublicacaoChange(event: any) {
-    this.exemplares = await this.getAllExemplares(event.option.value)
-    
+    this.exemplares = await this.getAllExemplares(event.option.value);
   }
 
   formatPublicacoesInputName(selectedIsbn: string) {
@@ -145,9 +143,7 @@ export class EmprestimoComponent {
   async getAllAssociados() {
     try {
       this.loading = true;
-      const response = await this.httpService.get<IGetAssociados>(
-        '/associado'
-      );
+      const response = await this.httpService.get<IGetAssociados>('/associado');
 
       console.log(response);
       this.loading = false;
