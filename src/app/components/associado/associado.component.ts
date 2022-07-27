@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
 import {
-  Associado,
+  CreateAssociado,
   AssociadoFuncao,
   ICreateAssociadoResponse,
 } from './associado.interface';
@@ -25,7 +25,7 @@ export class AssociadoComponent {
   message: ICreateMessage = '';
 
   ngOnInit(): void {
-    this.associadoForm = this.formBuilder.group<Associado>({
+    this.associadoForm = this.formBuilder.group<CreateAssociado>({
       nome: '',
       email: '',
       endereco: '',

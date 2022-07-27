@@ -1,3 +1,4 @@
+import { Associado } from '../associado/associado.interface';
 import { Publicacao } from '../publicacao/publicacao.interface';
 
 export interface ICreateReservaResponse {
@@ -8,4 +9,9 @@ export interface ICreateReservaResponse {
 export interface IGetPublicacoes {
   status: number;
   data: Publicacao[];
+}
+
+export interface IGetAssociados {
+  status: number;
+  data: Associado[];
 }

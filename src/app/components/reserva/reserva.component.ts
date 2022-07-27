@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
+import { Associado } from '../associado/associado.interface';
 import { Publicacao } from '../publicacao/publicacao.interface';
-import { ICreateReservaResponse, IGetPublicacoes } from './reserva.interface';
+import { ICreateReservaResponse, IGetAssociados, IGetPublicacoes } from './reserva.interface';
 
 type ICreateMessage =
   | 'Reserva efetuada'
   | 'Erro inesperado ao reservar'
   | 'Erro inesperado ao buscar publicações'
+  | 'Erro inesperado ao buscar associados'
   | '';
 
 @Component({
@@ -26,6 +28,7 @@ export class ReservaComponent {
   reservaForm!: FormGroup;
   message: ICreateMessage = '';
   publicacoes: Publicacao[] = [];
+  associados: Associado[] = [];
 
   ngOnInit(): void {
     this.reservaForm = this.formBuilder.group({
@@ -36,10 +39,24 @@ export class ReservaComponent {
     this.getAllPublicacoes().then((publicacoes) => {
       this.publicacoes = publicacoes;
     });
+
+    this.getAllAssociados().then((associados) => {
+      this.associados = associados;
+    });
   }
 
   async onSubmit() {
     this.createReserva();
+  }
+
+  formatAssociadosInputName(selectedCodigo: number) {
+    const selectedAssociado = this.associados.find(
+      ({ Codigo }) => Codigo === selectedCodigo
+    );
+
+    if (!selectedAssociado) return '';
+
+    return `${selectedAssociado.Codigo} - ${selectedAssociado.Nome}`;
   }
 
   formatPublicacoesInputName(selectedIsbn: string) {
@@ -73,6 +90,29 @@ export class ReservaComponent {
     } catch (err) {
       this.loading = false;
       this.message = 'Erro inesperado ao reservar';
+    }
+  }
+
+  async getAllAssociados() {
+    try {
+      this.loading = true;
+      const response = await this.httpService.get<IGetAssociados>(
+        '/associado'
+      );
+
+      console.log(response);
+      this.loading = false;
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        this.message = 'Erro inesperado ao buscar associados';
+        return [];
+      }
+    } catch (err) {
+      this.loading = false;
+      this.message = 'Erro inesperado ao buscar associados';
+      return [];
     }
   }
 

@@ -25,13 +25,25 @@
         required
       />
     </div>
+    <mat-autocomplete
+      #associado="matAutocomplete"
+      [displayWith]="formatAssociadosInputName.bind(this)"
+    >
+      <mat-option
+        *ngFor="let associado of associados"
+        [value]="associado.Codigo"
+      >
+        {{ associado.Codigo }} - {{ associado.Nome }}
+      </mat-option>
+    </mat-autocomplete>
     <div class="item">
       <input
         id="associado"
-        type="number"
+        type="text"
         name="associado"
         formControlName="associadoId"
         placeholder="Codigo do Associado"
+        [matAutocomplete]="associado"
         required
       />
     </div>
