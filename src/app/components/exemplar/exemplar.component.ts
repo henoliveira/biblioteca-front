@@ -45,22 +45,28 @@ export class ExemplarComponent {
   }
 
   async createExemplar() {
-    this.loading = true;
-    const response = await this.httpService.post<ICreateExemplarResponse>(
-      '/exemplar',
-      {
-        Numero: this.exemplarForm.value.Numero,
-        ISBN: this.exemplarForm.value.ISBN,
-        Preco: this.exemplarForm.value.Preco,
+    try {
+      this.loading = true;
+      const response = await this.httpService.post<ICreateExemplarResponse>(
+        '/exemplar',
+        {
+          Numero: this.exemplarForm.value.Numero,
+          ISBN: this.exemplarForm.value.ISBN,
+          Preco: this.exemplarForm.value.Preco,
+        }
+      );
+
+      console.log(response);
+      this.loading = false;
+
+      if (response.status === 201) {
+        this.createMessage = 'Criado com sucesso';
+      } else {
+        this.createMessage = 'Erro inesperado ao criar';
       }
-    );
+    } catch (error) {
+      this.loading = false;
 
-    console.log(response);
-    this.loading = false;
-
-    if (response.status === 201) {
-      this.createMessage = 'Criado com sucesso';
-    } else {
       this.createMessage = 'Erro inesperado ao criar';
     }
   }
