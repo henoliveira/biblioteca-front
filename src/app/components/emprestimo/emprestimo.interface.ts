@@ -1,3 +1,4 @@
+import { Associado } from '../associado/associado.interface';
 import { Exemplar } from '../exemplar/exemplar.interface';
 import { Publicacao } from '../publicacao/publicacao.interface';
 
@@ -21,3 +22,9 @@ export interface Emprestimo {
   ISBN: string;
   associadoId: number;
 }
+
+export interface IGetAssociados {
+  status: number;
+  data: Associado[];
+}
+

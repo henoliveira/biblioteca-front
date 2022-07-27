@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { HttpService } from '../../services/http.service';
+import { Associado } from '../associado/associado.interface';
 import { Exemplar } from '../exemplar/exemplar.interface';
 import { Publicacao } from '../publicacao/publicacao.interface';
+import { IGetAssociados } from '../reserva/reserva.interface';
 import {
   Emprestimo,
   ICreateEmprestimoResponse,
@@ -15,6 +17,7 @@ type IMessage =
   | 'Emprestimo realizado'
   | 'Erro inesperado ao realizar emprestimo'
   | 'Erro inesperado ao buscar exemplares'
+  | 'Erro inesperado ao buscar associados'
   | '';
 
 @Component({
@@ -34,6 +37,8 @@ export class EmprestimoComponent {
   message: IMessage = '';
   publicacoes: Publicacao[] = [];
   exemplares: Exemplar[] = [];
+  associados: Associado[] = [];
+
 
   ngOnInit(): void {
     this.emprestimoForm = this.formBuilder.group<Partial<Emprestimo>>({
@@ -45,7 +50,22 @@ export class EmprestimoComponent {
     this.getAllPublicacoes().then((publicacoes) => {
       this.publicacoes = publicacoes;
     });
+
+    this.getAllAssociados().then((associados) => {
+      this.associados = associados;
+    });
   }
+
+  formatAssociadosInputName(selectedCodigo: number) {
+    const selectedAssociado = this.associados.find(
+      ({ Codigo }) => Codigo === selectedCodigo
+    );
+
+    if (!selectedAssociado) return '';
+
+    return `${selectedAssociado.Codigo} - ${selectedAssociado.Nome}`;
+  }
+
 
   async onSubmit() {
     console.log(this.emprestimoForm.value);
@@ -114,6 +134,29 @@ export class EmprestimoComponent {
     } catch (err) {
       this.loading = false;
       console.log('Erro inesperado ao buscar publicações');
+      return [];
+    }
+  }
+
+  async getAllAssociados() {
+    try {
+      this.loading = true;
+      const response = await this.httpService.get<IGetAssociados>(
+        '/associado'
+      );
+
+      console.log(response);
+      this.loading = false;
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        this.message = 'Erro inesperado ao buscar associados';
+        return [];
+      }
+    } catch (err) {
+      this.loading = false;
+      this.message = 'Erro inesperado ao buscar associados';
       return [];
     }
   }
