@@ -6,6 +6,7 @@
     <mat-autocomplete
       #publicacoesAuto="matAutocomplete"
       [displayWith]="formatPublicacoesInputName.bind(this)"
+      (optionSelected)="handlePublicacaoChange($event)"
     >
       <mat-option
         *ngFor="let publicacao of publicacoes"
@@ -30,6 +31,7 @@
       [displayWith]="formatExemplaresInputName.bind(this)"
     >
       <mat-option *ngFor="let exemplar of exemplares" [value]="exemplar.Numero">
+        Exemplar {{ exemplar.Numero }} - R${{ exemplar.Preco }}
       </mat-option>
     </mat-autocomplete>
     <div class="item">

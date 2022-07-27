@@ -68,7 +68,6 @@ export class EmprestimoComponent {
 
 
   async onSubmit() {
-    console.log(this.emprestimoForm.value);
     this.createEmprestimo();
   }
 
@@ -97,6 +96,11 @@ export class EmprestimoComponent {
     }
   }
 
+  async handlePublicacaoChange(event: any) {
+    this.exemplares = await this.getAllExemplares(event.option.value)
+    
+  }
+
   formatPublicacoesInputName(selectedIsbn: string) {
     const selectedPublicacao = this.publicacoes.find(
       ({ ISBN }) => ISBN === selectedIsbn
@@ -108,7 +112,7 @@ export class EmprestimoComponent {
 
   formatExemplaresInputName(selectedExemplarCodigo: string) {
     const selectedExemplar = this.exemplares.find(
-      ({ Numero }) => `${Numero}` === selectedExemplarCodigo
+      ({ Numero }) => `${Numero}` === `${selectedExemplarCodigo}`
     );
     if (!selectedExemplar) return '';
 
@@ -164,7 +168,7 @@ export class EmprestimoComponent {
   private async getAllExemplares(publicacaoISBN: string) {
     try {
       this.loading = true;
-      const response = await this.httpService.get<IGetPublicacao>(
+      const response = await this.httpService.get<IGetExemplares>(
         `/exemplar/publicacao/${publicacaoISBN}`
       );
 
